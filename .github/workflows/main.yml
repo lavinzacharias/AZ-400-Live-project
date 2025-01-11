@@ -11,7 +11,7 @@ permissions:
 
 env:
     REGISTRY_NAME: lavinacr
-    CLUSTER_NAME: example-aks-cluster
+    CLUSTER_NAME: example-aks
     CLUSTER_RESOURCE_GROUP: deploy-first-containerapp-rg
     NAMESPACE: mygradez
 
@@ -102,7 +102,7 @@ jobs:
           
         env:
           REGISTRY_NAME: testregistryvm
-          CLUSTER_NAME: example-aks-cluster
+          CLUSTER_NAME: example-aks
           CLUSTER_RESOURCE_GROUP: example-resources
           NAMESPACE: mygradez
 
