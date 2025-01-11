@@ -49,7 +49,7 @@ jobs:
 # Container build and push to ACR
 
       - run:  |
-          docker build . -t ${{env.REGISTRY_NAME}}.azurecr.io/mygradezimage:${{github.sha}}
+          docker build -t ${{env.REGISTRY_NAME}}.azurecr.io/mygradezimage:${{github.sha}} .
           docker push ${{env.REGISTRY_NAME}}.azurecr.io/mygradezimage:${{github.sha}}
 
 # Set environment variables for the teraaform
@@ -85,7 +85,7 @@ jobs:
           ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
  
       - name: "Terraform Apply"
-        id: plan
+        id: apply
         run: terraform plan -no color -lock=false
         working-directory: aks-terraform
         env:
