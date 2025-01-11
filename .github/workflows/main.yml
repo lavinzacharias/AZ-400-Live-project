@@ -100,8 +100,8 @@ jobs:
         with:
           resource-group: ${{ env.RESOURCE_GROUP }}
           cluster-name: ${{ env.CLUSTER_NAME }}
-          clientId: "*************************"
-          clientSecret: "**************************"
+          clientId: ${{ secrets.AZURE_CLIENT_ID }}
+          clientSecret: ${{secrets.AZURE_CLIENT_SECRET}}
           subscriptionId: "1b1b3218-5a2c-44fd-925b-4b9c12f8f380"
           tenantId: "8d1c65ec-cad6-4815-b527-499168d3c31a"
 
