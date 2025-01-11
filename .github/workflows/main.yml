@@ -101,6 +101,12 @@ jobs:
           cluster-name: ${{ env.CLUSTER_NAME }}
           creds: ${{ secrets.AZURE_CREDENTIALS }}
           
+        env:
+          REGISTRY_NAME: testregistryvm
+          CLUSTER_NAME: example-aks-cluster
+          CLUSTER_RESOURCE_GROUP: example-resources
+          NAMESPACE: mygradez
+
  # Create an image pull secret for Azure Container Registry. 
     
       - name: Create image pull secret 
@@ -110,11 +116,6 @@ jobs:
             --docker-username=${{ secrets.AZURE_USERNAME }} \ 
             --docker-password=${{ secrets.AZURE_PASSWORD }} \ 
         
-        env:
-          REGISTRY_NAME: testregistryvm
-          CLUSTER_NAME: example-aks-cluster
-          CLUSTER_RESOURCE_GROUP: example-resources
-          NAMESPACE: mygradez
 
 # Create namespace if doesn't exist
 
