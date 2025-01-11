@@ -100,6 +100,16 @@ jobs:
           resource-group: ${{ env.CLUSTER_RESOURCE_GROUP }}
           cluster-name: ${{ env.CLUSTER_NAME }}
           creds: ${{ secrets.AZURE_CREDENTIALS }}
+          
+ # Create an image pull secret for Azure Container Registry. 
+    
+      - name: Create image pull secret 
+        run: | 
+          kubectl create secret docker-registry acr-secret \ 
+            --docker-server=${{ env.REGISTRY_NAME }}.azurecr.io \ 
+            --docker-username=${{ secrets.AZURE_USERNAME }} \ 
+            --docker-password=${{ secrets.AZURE_PASSWORD }} \ 
+        
         env:
           REGISTRY_NAME: testregistryvm
           CLUSTER_NAME: example-aks-cluster
