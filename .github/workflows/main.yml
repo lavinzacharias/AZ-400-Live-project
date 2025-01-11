@@ -85,7 +85,7 @@ jobs:
  
       - name: "Terraform Apply"
         id: apply
-        run: terraform plan -no color -lock=false
+        run: terraform plan -no-color -lock=false
         working-directory: aks-terraform
         env:
           ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
