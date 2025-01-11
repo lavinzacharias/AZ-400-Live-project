@@ -1,6 +1,6 @@
 terraform {
   backend "azurerm" {
-    resource_group_name = "test-vm1"
+    resource_group_name = "deploy-first-containerapp-rg"
     storage_account_name= "container633053"
     container_name = "tfstate"
     key = "terraform.tfstate"

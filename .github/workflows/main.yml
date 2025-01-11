@@ -42,17 +42,17 @@ jobs:
 
       - uses: azure/docker-login@v1
         with:
-          login-server: ${{env.REGISTRY_NAME}}.azurecr.io
-          username: ${{secrets.REGISTRY_USERNAME}}
-          password: ${{secrets.REGISTRY_PASSWORD}}
+          login-server: ${{ env.REGISTRY_NAME }}.azurecr.io
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
 
 # Container build and push to ACR
 
       - run:  |
-          docker build -t ${{env.REGISTRY_NAME}}.azurecr.io/mygradezimage:${{github.sha}} .
+          docker build . -t ${{env.REGISTRY_NAME}}.azurecr.io/mygradezimage:${{github.sha}} 
           docker push ${{env.REGISTRY_NAME}}.azurecr.io/mygradezimage:${{github.sha}}
 
-# Set environment variables for the teraaform
+# Set environment variables for the terraform
 
       - name: Set environment variables for Terraform
         run: |
@@ -100,8 +100,8 @@ jobs:
         with:
           resource-group: ${{ env.RESOURCE_GROUP }}
           cluster-name: ${{ env.CLUSTER_NAME }}
-          clientId: "*************************"
-          clientSecret: "**************************"
+          clientId: ${{ secrets.AZURE_CLIENT_ID }}
+          clientSecret: ${{secrets.AZURE_CLIENT_SECRET}}
           subscriptionId: "1b1b3218-5a2c-44fd-925b-4b9c12f8f380"
           tenantId: "8d1c65ec-cad6-4815-b527-499168d3c31a"
 
