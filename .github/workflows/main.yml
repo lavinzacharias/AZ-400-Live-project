@@ -110,7 +110,7 @@ jobs:
     
       - name: Create image pull secret 
         run: | 
-          kubectl create secret docker-registry acr-secret \ 
+          kubectl create secret docker-registry AZURE_CREDENTIALS \ 
             --docker-server=${{ env.REGISTRY_NAME }}.azurecr.io \ 
             --docker-username=${{ secrets.AZURE_USERNAME }} \ 
             --docker-password=${{ secrets.AZURE_PASSWORD }} 
