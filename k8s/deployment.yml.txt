@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: githubaction-aks-demo
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: githubaction-aks-demo
+  template:
+    metadata:
+      labels:
+        app: githubaction-aks-demo
+    spec:
+      containers:
+      - name: your-container-name
+        image: lavinacr.azurecr.io/mygradezimage:tag
+        ports:
+        - containerPort: 80
