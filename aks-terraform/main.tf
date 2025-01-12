@@ -22,16 +22,16 @@ resource "azurerm_resource_group" "example-resources" {
 resource "azurerm_virtual_network" "example-vnet" {
   name                = "example-vnet"
   address_space       = ["10.0.0.0/16"]
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
+  location            = azurerm_resource_group.example-resources.location
+  resource_group_name = azurerm_resource_group.example-resources.name
 }
 
 # Declare the Subnet
 
 resource "azurerm_subnet" "internal" {
   name                 = "internal-subnet"
-  resource_group_name  = azurerm_resource_group.example.name
-  virtual_network_name = azurerm_virtual_network.example.name
+  resource_group_name  = azurerm_resource_group.example-resources.name
+  virtual_network_name = azurerm_virtual_network.example-vnet.name
   address_prefixes     = ["10.0.1.0/24"]
 }
 
@@ -39,8 +39,8 @@ resource "azurerm_subnet" "internal" {
 
 resource "azurerm_kubernetes_cluster" "example-aks-cluster" {
   name                = "example-aks"
-  location            = azurerm_resource_group.example.location
-  resource_group_name = azurerm_resource_group.example.name
+  location            = azurerm_resource_group.example-resources.location
+  resource_group_name = azurerm_resource_group.example-resources.name
   dns_prefix          = "exampleaks"
 
   default_node_pool {

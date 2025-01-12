@@ -11,7 +11,7 @@ permissions:
 
 env:
     REGISTRY_NAME: lavinacr
-    CLUSTER_NAME: example-aks-cluster
+    CLUSTER_NAME: example-aks
     CLUSTER_RESOURCE_GROUP: deploy-first-containerapp-rg
     NAMESPACE: mygradez
 
@@ -61,55 +61,65 @@ jobs:
           echo "ARM_TENANT_ID=${{secrets.AZURE_TENANT_ID}}" >> $GITHUB_ENV
           echo "ARM_SUBSCRIPTION_ID=${{secrets.AZURE_SUBSCRIPTION_ID}}" >> $GITHUB_ENV
 
-    
       - name: "Terraform Init"
         id: init
         run: terraform init
         working-directory: aks-terraform
 
-      
         env:
-          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
-
+          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+          
       - name: "Terraform Plan"
         id: plan
         run: terraform plan -no-color -lock=false
         working-directory: aks-terraform
         env:
-          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
  
       - name: "Terraform Apply"
         id: apply
-        run: terraform plan -no color -lock=false
+        run: terraform apply -auto-approve -no-color -lock=false
         working-directory: aks-terraform
         env:
-          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-          ARM_CLIENT_SECRET: ${{ secrets.ARM_CLIENT_SECRET }}
-          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+          ARM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
  
 # Set the target Azure Kubernetes Service cluster
 
       - uses: azure/aks-set-context@v1
         with:
-          resource-group: ${{ env.RESOURCE_GROUP }}
+          resource-group: ${{ env.CLUSTER_RESOURCE_GROUP }}
           cluster-name: ${{ env.CLUSTER_NAME }}
-          clientId: ${{ secrets.AZURE_CLIENT_ID }}
-          clientSecret: ${{secrets.AZURE_CLIENT_SECRET}}
-          subscriptionId: "1b1b3218-5a2c-44fd-925b-4b9c12f8f380"
-          tenantId: "8d1c65ec-cad6-4815-b527-499168d3c31a"
-
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+          
         env:
           REGISTRY_NAME: testregistryvm
-          CLUSTER_NAME: example-aks-cluster
+          CLUSTER_NAME: example-aks
           CLUSTER_RESOURCE_GROUP: example-resources
           NAMESPACE: mygradez
+
+ # Create an image pull secret for Azure Container Registry. 
+    
+    #  - name: Create image pull secret 
+     #   run: | 
+      #    kubectl create secret docker-registry acr-secret \ 
+       #     --docker-server=${{ env.REGISTRY_NAME }}.azurecr.io \ 
+        #    --docker-username=${{ secrets.AZURE_USERNAME }} \ 
+         #   --docker-password=${{ secrets.AZURE_PASSWORD }} 
+      #  env:
+       #   REGISTRY_NAME: testregistryvm
+        #  CLUSTER_NAME: example-aks
+         # CLUSTER_RESOURCE_GROUP: example-resources
+          #NAMESPACE: mygrade
+          
 
 # Create namespace if doesn't exist
 
