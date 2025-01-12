@@ -124,10 +124,9 @@ jobs:
         uses: azure/k8s-create-secret@v1    
         with:
           secret-name: acr-secret
-          container-registry-url: ${{ secrets.DOCKER_SERVER }}
-          container-registry-username: ${{ secrets.DOCKER_USERNAME }}
-          container-registry-password: ${{ secrets.DOCKER_PASSWORD }}
-          container-registry-email: ${{ secrets.DOCKER_EMAIL }}
+          login-server: ${{ env.REGISTRY_NAME }}.azurecr.io
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
           secret-type: docker-registry 
           namespace: mygrade
           
