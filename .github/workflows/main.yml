@@ -118,7 +118,7 @@ jobs:
           REGISTRY_NAME: testregistryvm
           CLUSTER_NAME: example-aks
           CLUSTER_RESOURCE_GROUP: example-resources
-          NAMESPACE: mygrade
+          #NAMESPACE: mygrade
           
 
 # Create namespace if doesn't exist
