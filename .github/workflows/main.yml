@@ -121,11 +121,6 @@ jobs:
           container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
           secret-type: docker-registry
           namespace: mygrade
-        run: | 
-          kubectl create secret docker-registry AZURE_CREDENTIALS \ 
-            --docker-server=${{ env.REGISTRY_NAME }}.azurecr.io \ 
-            --docker-username=${{ secrets.AZURE_USERNAME }} \ 
-            --docker-password=${{ secrets.AZURE_PASSWORD }} 
         env:
           KUBECONFIG: ${{ secrets.KUBE_CONFIG }}
           #REGISTRY_NAME: testregistryvm
