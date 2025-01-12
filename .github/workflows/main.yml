@@ -105,6 +105,10 @@ jobs:
           CLUSTER_NAME: example-aks
           CLUSTER_RESOURCE_GROUP: example-resources
           NAMESPACE: mygradez
+# Create namespace if doesn't exist
+
+      - run: |
+          kubectl create namespace ${{env.NAMESPACE}} --dry-run -o json | kubectl apply -f -
 
  # Create an image pull secret for Azure Container Registry. 
     
@@ -118,11 +122,8 @@ jobs:
           REGISTRY_NAME: testregistryvm
           CLUSTER_NAME: example-aks
           CLUSTER_RESOURCE_GROUP: example-resources
-          #NAMESPACE: mygrade
+          NAMESPACE: mygrade
           
 
-# Create namespace if doesn't exist
 
-      - run: |
-          kubectl create namespace ${{env.NAMESPACE}} --dry-run -o json | kubectl apply -f -
 
