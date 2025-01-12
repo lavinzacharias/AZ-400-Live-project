@@ -112,17 +112,26 @@ jobs:
 
  # Create an image pull secret for Azure Container Registry. 
     
-      - name: Create image pull secret 
+      - name: Create Kubernetes Secret
+        uses: azure/k8s-create-secret@v1
+        with:
+          secret-name: acr-secret
+          container-registry-url: ${{ env.REGISTRY_NAME }}.azurecr.io
+          container-registry-username: ${{ secrets.REGISTRY_USERNAME }}
+          container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}
+          secret-type: docker-registry
+          namespace: mygrade
         run: | 
           kubectl create secret docker-registry AZURE_CREDENTIALS \ 
             --docker-server=${{ env.REGISTRY_NAME }}.azurecr.io \ 
             --docker-username=${{ secrets.AZURE_USERNAME }} \ 
             --docker-password=${{ secrets.AZURE_PASSWORD }} 
         env:
-          REGISTRY_NAME: testregistryvm
-          CLUSTER_NAME: example-aks
-          CLUSTER_RESOURCE_GROUP: example-resources
-          NAMESPACE: mygrade
+          KUBECONFIG: ${{ secrets.KUBE_CONFIG }}
+          #REGISTRY_NAME: testregistryvm
+          #CLUSTER_NAME: example-aks
+          #CLUSTER_RESOURCE_GROUP: example-resources
+          #NAMESPACE: mygrade
           
 
 
