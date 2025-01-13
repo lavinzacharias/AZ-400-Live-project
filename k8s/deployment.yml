@@ -13,7 +13,7 @@ spec:
         app: githubaction-aks-demo
     spec:
       containers:
-      - name: githubaction-aks-demo
+      - name: mygradezimage
         image: lavinacr.azurecr.io/mygradezimage:tag
         ports:
         - containerPort: 80
