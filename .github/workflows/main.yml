@@ -126,12 +126,16 @@ jobs:
           # Replace variables using sed
           sed -e "s|{{REGISTRY_NAME}}|${{env.REGISTRY_NAME}}|g" \
               -e "s|{{GITHUB_SHA}}|${{github.sha}}|g" \
-              #k8s/deployment.yml > k8s/deployment-substituted.yml
+              k8s/deployment.yml > k8s/deployment-substituted.yml
+      - name: Verify substituted manifest files
+        run: |
+          ls -l k8s/deployment-substituted.yml
+          ls -l k8s/service.yml
 # Deploy App to AKS
       - uses: azure/k8s-deploy@v1
         with:
-          manifest: |
-            k8s/deployment.yml
+          manifests: |
+            k8s/deployment-substituted.yml
             k8s/service.yml
           images: |
             ${{env.REGISTRY_NAME}}.azurecr.io/mygradezimage:${{github.sha}}
