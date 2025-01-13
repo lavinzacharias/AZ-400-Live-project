@@ -17,4 +17,5 @@ spec:
         image: lavinacr.azurecr.io/mygradezimage:tag
         ports:
         - containerPort: 80
-      imagePullSecrets: - name: lavinacr-registry-connection  
+      imagePullSecrets: 
+      - name: lavinacr-registry-connection  
