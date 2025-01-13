@@ -128,6 +128,9 @@ jobs:
           literals: | 
             username=myUsername 
             password=myPassword 
+          login-server: ${{ env.REGISTRY_NAME }}.azurecr.io
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}  
           kubeconfig: ${{ secrets.KUBE_CONFIG_DATA }}
           
           
