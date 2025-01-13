@@ -122,13 +122,14 @@ jobs:
 
       - name: Create Kubernetes Secret 
         uses: azure/k8s-create-secret@v1    
-        with:
-          secret-name: acr-secret
-          login-server: ${{ env.REGISTRY_NAME }}.azurecr.io
-          username: ${{ secrets.REGISTRY_USERNAME }}
-          password: ${{ secrets.REGISTRY_PASSWORD }}
-          secret-type: docker-registry 
-          namespace: mygrade
+        with: 
+          secret-name: my-secret 
+          namespace: mygrade 
+          literals: | 
+            username=myUsername 
+            password=myPassword 
+          kubeconfig: ${{ secrets.KUBE_CONFIG_DATA }}
+          
           
 
 
