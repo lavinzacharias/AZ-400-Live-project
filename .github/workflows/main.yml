@@ -105,15 +105,8 @@ jobs:
           CLUSTER_NAME: example-aks
           CLUSTER_RESOURCE_GROUP: example-resources
           NAMESPACE: mygradez
-# Create namespace if doesn't exist
 
-      - run: |
-          kubectl create namespace ${{env.NAMESPACE}} --dry-run -o json | kubectl apply -f -
-
- # Create an image pull secret for Azure Container Registry. 
-      
-      #- name: Create Kubernetes Secret 
-        uses: azure/k8s-create-secret@v1    
+      - uses: azure/k8s-create-secret@v1    
         with: 
           secret-name: my-secret 
           namespace: mygrade 
@@ -124,6 +117,13 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}  
           kubeconfig: ${{ secrets.KUBE_CONFIG_DATA }}
+# Create namespace if doesn't exist
+
+      - run: |
+          kubectl create namespace ${{env.NAMESPACE}} --dry-run -o json | kubectl apply -f -
+
+
+        
           
           
 
