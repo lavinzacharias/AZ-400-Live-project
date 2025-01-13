@@ -111,7 +111,7 @@ jobs:
       - run: |
           kubectl create namespace ${{env.NAMESPACE}} --dry-run -o json | kubectl apply -f -
 
-    # Create Kubernetes secret
+    # Create Kubernetes secret.
       - uses: azure/k8s-create-secret@v1    
         with: 
           secret-name: my-secret 
