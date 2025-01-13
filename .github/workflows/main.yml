@@ -111,16 +111,8 @@ jobs:
           kubectl create namespace ${{env.NAMESPACE}} --dry-run -o json | kubectl apply -f -
 
  # Create an image pull secret for Azure Container Registry. 
-    
-      - name: Checkout code
-        uses: actions/checkout@v2
       
-      - name: Set up kubectl
-        uses: azure/setup-kubectl@v1
-        with:
-          version: 'latest'
-
-      - name: Create Kubernetes Secret 
+      #- name: Create Kubernetes Secret 
         uses: azure/k8s-create-secret@v1    
         with: 
           secret-name: my-secret 
