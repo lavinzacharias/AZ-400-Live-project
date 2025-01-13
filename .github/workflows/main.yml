@@ -119,7 +119,27 @@ jobs:
           container-registry-password: ${{ secrets.REGISTRY_PASSWORD }}  
           secret-name: ${{env.REGISTRY_NAME}}-registry-connection
           namespace: ${{env.NAMESPACE}}
-          
+
+# Replace variables in deployment file
+      - name: Replace variables in deployment file
+        run: |
+# Replace variables using sed
+          sed -e "s|{{REGISTRY_NAME}}|${{env.REGISTRY_NAME}}|g" \
+              -e "s|{{GITHUB_SHA}}|${{github.sha}}g" \
+              k8s/deployment.yml > k8s/deployment-substituted.yml
+# Deploy App to AKS
+      - uses: azure/k8s-deploy@v1
+        with:
+          manifest: |
+            k8s/deployment-substituted.yml
+            k8s/service.yml
+          images: |
+            ${{env.REGISTRY_NAME}}.azurecr.io/mygradezimage: ${{github.sha}}
+          imagepullsecrets: |
+            ${{env.REGISTRY_NAME}}.registry-connection
+          namespace: ${{env.NAMESPACE}}
+
+
 
 
 
