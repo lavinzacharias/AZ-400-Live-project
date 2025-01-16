@@ -4,9 +4,9 @@ metadata:
   name: githubaction-aks-demo-service
 spec:
   selector:
-    app: your-app-label
+    app: githubaction-aks-demo-app
   ports:
   - protocol: TCP
     port: 80
-    targetPort: 80
+    targetPort: 8080
   type: LoadBalancer
