@@ -44,7 +44,7 @@ resource "azurerm_kubernetes_cluster" "example-aks-cluster" {
   dns_prefix          = "exampleaks"
 
   default_node_pool {
-    name       = "kubeagentpool"
+    name       = "kubepool"
     node_count = 1
     vm_size    = "Standard_DS2_v2"
   }
