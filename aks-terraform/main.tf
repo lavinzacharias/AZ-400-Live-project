@@ -38,7 +38,7 @@ resource "azurerm_subnet" "internal" {
 # Declare the Kubernetes Cluster
 
 resource "azurerm_kubernetes_cluster" "example-aks-cluster" {
-  name                = "example-aks"
+  name                = "example-aks-cluster"
   location            = azurerm_resource_group.example-resources.location
   resource_group_name = azurerm_resource_group.example-resources.name
   dns_prefix          = "exampleaks"

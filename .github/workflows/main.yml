@@ -12,7 +12,7 @@ permissions:
 env:
     REGISTRY_NAME: lavinacr
     CLUSTER_NAME: example-aks
-    CLUSTER_RESOURCE_GROUP: deploy-first-containerapp-rg
+    CLUSTER_RESOURCE_GROUP: example-resources
     NAMESPACE: mygradez
 
 jobs:
@@ -140,7 +140,7 @@ jobs:
           images: |
             ${{env.REGISTRY_NAME}}.azurecr.io/mygradezimage:${{github.sha}}
           imagepullsecrets: |
-            ${{env.REGISTRY_NAME}}.registry-connection
+            ${{env.REGISTRY_NAME}}-registry-connection
           namespace: ${{env.NAMESPACE}}
 
 
