@@ -101,7 +101,7 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
           
         env:
-          REGISTRY_NAME: testregistryvm
+          REGISTRY_NAME: lavinacr
           CLUSTER_NAME: example-aks
           CLUSTER_RESOURCE_GROUP: example-resources
           NAMESPACE: mygradez
@@ -142,7 +142,7 @@ jobs:
           imagepullsecrets: |
             ${{env.REGISTRY_NAME}}.registry-connection
           namespace: ${{env.NAMESPACE}}
-          
+
 
 
 
