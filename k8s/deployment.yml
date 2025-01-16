@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: my-app-container
-        image: lavinacr.azurecr.io/mygradezimage:tag
+        image: lavinacr.azurecr.io/mygradezimage:${{github.sha}}
         ports:
         - containerPort: 8080
       imagePullSecrets:
