@@ -102,7 +102,7 @@ jobs:
           
         env:
           REGISTRY_NAME: lavinacr
-          CLUSTER_NAME: example-aks
+          CLUSTER_NAME: example-aks-cluster
           CLUSTER_RESOURCE_GROUP: example-resources
           NAMESPACE: mygradez
 
